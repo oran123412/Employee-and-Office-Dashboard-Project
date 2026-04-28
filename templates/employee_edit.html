@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>עריכת עובד</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="left">
+        <a href="{{ url_for('web.home') }}"><button class="btn">חזור</button></a>
+      </div>
+      <div class="right">
+        <h1 style="margin:0;">עריכת עובד: {{ employee.name }}</h1>
+      </div>
+    </div>
+
+    <div class="card">
+      <form class="form-row" action="{{ url_for('web.manage_update_employee', edit_id=employee.id) }}" method="POST">
+        <div class="field">
+          <label>שם</label>
+          <input type="text" name="emp_name" value="{{ employee.name }}" required>
+        </div>
+        <div class="field">
+          <label>מחלקה</label>
+          <input type="text" name="emp_department" value="{{ employee.department }}" required>
+        </div>
+        <div class="field">
+          <label>שכר</label>
+          <input type="number" step="0.01" name="emp_salary" value="{{ employee.salary }}" required>
+        </div>
+        <div class="field">
+          <label>תאריך</label>
+          <input type="date" name="emp_hire_date" value="{{ employee.hire_date }}" required>
+        </div>
+        <div class="field" style="min-width: 320px;">
+          <label>משרד</label>
+          <select name="emp_office_id">
+            <option value="None">ללא משרד</option>
+            {% for o in offices %}
+              <option value="{{ o.id }}" {% if employee.office_id == o.id %}selected{% endif %}>
+                קומה {{ o.floor }}, חדר {{ o.room_number }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field" style="min-width: 140px;">
+          <label>&nbsp;</label>
+          <button class="btn" type="submit">שמור שינויים</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

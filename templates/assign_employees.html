@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>הקצאת עובדים למשרד</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="left">
+        <a href="{{ url_for('web.home') }}"><button class="btn">חזור לדף הבית</button></a>
+      </div>
+      <div class="right">
+        <h1 style="margin:0;">הקצאת עובדים קיימים למשרד</h1>
+      </div>
+    </div>
+
+    <div class="card">
+      <form method="POST" action="{{ url_for('web.manage_assign_employees') }}">
+        <div class="form-row" style="margin-bottom: 14px;">
+          <div class="field" style="min-width: 360px;">
+            <label>1. בחר משרד:</label>
+            <select name="office_id" required>
+              <option value="" disabled selected>-- בחר משרד מהרשימה --</option>
+              {% for office in offices %}
+                <option value="{{ office.id }}">משרד מס' {{ office.id }} (קומה {{ office.floor }}, חדר {{ office.room_number }})</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <h3 style="margin: 0 0 10px 0;">2. סמן עובדים להקצאה:</h3>
+        <div class="card" style="max-height: 320px; overflow-y: auto; padding: 12px;">
+          {% for emp in employees %}
+            <div style="display:flex; align-items:center; gap:10px; padding:6px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+              <input type="checkbox" name="employee_ids" value="{{ emp.id }}" id="emp_{{ emp.id }}">
+              <label for="emp_{{ emp.id }}" style="font-weight: 400;">
+                {{ emp.name }} (מחלקה: {{ emp.department }}, משרד נוכחי: {{ emp.office_id or 'ללא' }})
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div style="margin-top: 14px;">
+          <button class="btn" type="submit">שמור הקצאות</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

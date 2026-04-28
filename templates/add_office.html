@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="left">
+        <a href="{{ url_for('web.list_offices') }}"><button class="btn">Back</button></a>
+      </div>
+      <div class="right">
+        <h1 style="margin:0;">Add office</h1>
+      </div>
+    </div>
+
+    <div class="card">
+      <form class="form-row" action="{{ url_for('web.manage_add_office') }}" method="POST">
+        <div class="field">
+          <label>floor</label>
+          <input type="number" name="office_floor" required>
+        </div>
+        <div class="field">
+          <label>room number</label>
+          <input type="text" name="office_room_number" required>
+        </div>
+        <div class="field">
+          <label>capacity</label>
+          <input type="number" name="office_capacity" required>
+        </div>
+        <div class="field" style="min-width: 120px;">
+          <label>&nbsp;</label>
+          <button class="btn" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='employee_list.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='nav_button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+
+
+<div class="page">
+  <div class="topbar">
+    <div class="left">
+      <a href="{{ url_for('web.home') }}"><button class="btn">come back</button></a>
+    </div>
+  </div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Seniority (Years)</th>
+            <th>Salary</th>
+            <th>Office id</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>{{ data.id }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.department }}</td>
+            <td>{{ data.seniority }}</td>
+            <td>{{ data.salary }}</td>
+            <td>{{ data.office_id }}</td>
+            <td>
+                <div class="actions">
+                  <a href="{{ url_for('web.edit_employee_page', edit_id=data.id) }}"><button type="button" class="btn btn--sm">Edit</button></a>
+                </div>
+            </td>
+        </tr>
+
+
+    </tbody>
+</table>
+</div>

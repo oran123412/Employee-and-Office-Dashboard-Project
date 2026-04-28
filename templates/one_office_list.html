@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>פרטי משרד ותפוסה</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='trash_button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav_button.css') }}">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        /* עיצוב סטטוס חריגה */
+        .over-capacity {
+            background-color: #ffcccc; /* צבע רקע אדמדם */
+            color: red;               /* טקסט אדום */
+            font-weight: bold;
+        }
+        /* עיצוב טבלאות */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+            background-color: white;
+        }
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: center; 
+        }
+        th { 
+            background-color: #f4f4f4; 
+        }
+        h1, h3 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="{{ url_for('web.home') }}">
+        <button style="padding: 10px 20px; cursor: pointer;">חזרה לבית</button>
+    </a>
+
+    <h1>🏢 פרטי משרד: {{ data['room_number'] }}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>מספר חדר</th>
+                <th>קומה</th>
+                <th>קיבולת</th>
+                <th>עובדים כרגע</th>
+                <th>סטטוס</th>
+                <th>פעולות</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr class="{{ 'over-capacity' if data['current_count'] > data['capacity'] else '' }}">
+                <td>{{ data['room_number'] }}</td>
+                <td>{{ data['floor'] }}</td>
+                <td>{{ data['capacity'] }}</td>
+                <td>{{ data['current_count'] }}</td>
+                <td>
+                    {% if data['current_count'] > data['capacity'] %} 
+                        🚨 חריגת תפוסה! 
+                    {% else %} 
+                        ✅ תקין 
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('web.edit_office_page', office_id=data['id']) }}">
+                        <button type="button">עריכה</button>
+                    </a>
+                    <a href="{{ url_for('web.erasing_office', office_id=data['id']) }}">
+                        <button class="bin-button" type="button">מחיקה</button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 style="margin-top: 40px;">👥 עובדים המשויכים למשרד זה:</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>שם</th>
+                <th>מחלקה</th>
+                <th>שכר</th>
+                <th>פעולות</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in data.employees %}
+            <tr>
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.department }}</td>
+                <td>{{ employee.salary }}</td>
+                <td>
+                    <a href="{{ url_for('web.erasing_employee', emp_id=employee.id) }}">
+                        <button class="bin-button">
+                            <svg class="bin-top" viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="1.5" y1="3.5" x2="38" y2="3.5" stroke="white" stroke-width="3" stroke-linecap="round"></line>
+                                <path d="M12 3.5L13.75 1H25.25L27 3.5" stroke="white" stroke-width="2"></path>
+                            </svg>
+                            <svg class="bin-bottom" viewBox="0 0 33 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <mask id="path-1-inside-1_8" fill="white">
+                                    <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"></path>
+                                </mask>
+                                <path d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z" stroke="white" stroke-width="12" mask="url(#path-1-inside-1_8)"></path>
+                                <path d="M12 9L11 29" stroke="white" stroke-width="2" stroke-linecap="round"></path>
+                                <path d="M21 9L22 29" stroke="white" stroke-width="2" stroke-linecap="round"></path>
+                            </svg>
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5">אין עובדים במשרד זה כרגע.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

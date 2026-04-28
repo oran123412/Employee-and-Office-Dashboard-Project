@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='employee_list.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='nav_button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='ui.css') }}">
+
+
+<div class="page">
+  <div class="topbar">
+    <div class="left">
+      <a href="{{ url_for('web.list_offices') }}"><button class="btn">visit office</button></a>
+      <a href="{{ url_for('web.manage_assign_employees') }}"><button class="btn">assign</button></a>
+      <a class="muted-link" href="{{ url_for('web.manage_add_employee') }}">Add employee</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 18px;">
+    <form class="form-row" action="{{ url_for('web.home') }}">
+      <div class="field">
+        <label>filter by seniority</label>
+        <input type="number" name="seniority_var" value="{{ seniority_var }}">
+      </div>
+      <div class="field">
+        <label>sort by</label>
+        <select name="sort_by">
+          <option value="id" {{ 'selected' if sort_by == 'id' }}>id</option>
+          <option value="name" {{ 'selected' if sort_by == 'name' }}>name</option>
+          <option value="department" {{ 'selected' if sort_by == 'department' }}>department</option>
+          <option value="hire_date" {{ 'selected' if sort_by == 'hire_date' }}>hire_date</option>
+          <option value="salary" {{ 'selected' if sort_by == 'salary' }}>salary</option>
+          <option value="seniority" {{ 'selected' if sort_by == 'seniority' }}>seniority</option>
+          <option value="floor" {{ 'selected' if sort_by == 'floor' }}>office floor</option>
+          <option value="room_number" {{ 'selected' if sort_by == 'room_number' }}>room number</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>order</label>
+        <select name="order">
+          <option value="asc" {{ 'selected' if order == 'asc' }}>asc</option>
+          <option value="desc" {{ 'selected' if order == 'desc' }}>desc</option>
+        </select>
+      </div>
+      <div class="field" style="min-width: 120px;">
+        <label>&nbsp;</label>
+        <button class="btn btn--sm" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Hire_date</th>
+            <th>Seniority (Years)</th>
+            <th>Salary</th>
+            <th>Office id</th>
+            <th>Floor</th>
+            <th>Room number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+   <tbody> 
+{% for emp in data %}
+<tr>
+ <td>{{ emp.id }}</td>
+ <td><a href="{{ url_for('web.list_employee', emp_id=emp.id) }}">{{ emp.name }}</a></td>
+ <td>{{ emp.department }}</td>
+ <td>{{ emp.hire_date }}</td>
+ <td>{{ emp.seniority }}</td>
+ <td>{{ emp.salary }}</td>
+ <td>{{ emp.office_id }}</td>
+ <td>{{ emp.floor }}</td>
+ <td>{{ emp.room_number }}</td>
+ <td>
+    <div class="actions">
+      <a href="{{ url_for('web.edit_employee_page', edit_id=emp.id) }}"><button type="button" class="btn btn--sm">Edit</button></a>
+      <a href="{{ url_for('web.erasing_employee', emp_id=emp.id) }}"><button type="button" class="btn btn--sm">Erase</button></a>
+    </div>
+ </td>
+
+ </tr>
+ {% endfor %}
+ </tbody>
+</table>
+</div>
