@@ -6,8 +6,8 @@
     <title>ניהול משרדים</title>
         <style>
         .over-capacity {
-            background-color: #ffcccc; /* צבע רקע אדמדם */
-            color: red;               /* טקסט אדום */
+            background-color: #ffcccc; 
+            color: red;               
             font-weight: bold;
         }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -25,8 +25,8 @@
   <div class="topbar">
     <div class="left">
       <a href="{{ url_for('web.home') }}"><button class="btn">come back</button></a>
-      <a class="muted-link" href="{{ url_for('web.manage_add_office') }}">Add office</a>
-      <a class="muted-link" href="{{ url_for('web.manage_assign_employees') }}">הקצאת עובדים למשרד</a>
+      <a class="btn" href="{{ url_for('web.manage_add_office') }}">Add office</a>
+      <a class="btn" href="{{ url_for('web.manage_assign_employees') }}">הקצאת עובדים למשרד</a>
     </div>
     <div class="right">
       <h1 style="margin: 0;">🏢 רשימת משרדים ותפוסה</h1>
@@ -73,11 +73,12 @@
           <option value="desc" {{ 'selected' if order == 'desc' }}>desc</option>
         </select>
       </div>
-      <div class="field" style="min-width: 120px;">
-        <label>&nbsp;</label>
-        <button class="btn btn--sm" type="submit">Submit</button>
-      </div>
+      
     </form>
+    <div class="field" style="width: 120px;">
+        <label>&nbsp;</label>
+        <button class="btn" type="submit">Submit</button>
+      </div>
   </div>
     <table>
         <thead>

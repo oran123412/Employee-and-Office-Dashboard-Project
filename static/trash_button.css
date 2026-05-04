@@ -32,8 +32,8 @@
 }
 
 td {
-    text-align: center;      /* ממרכז את הכפתור אופקית */
-    vertical-align: middle;  /* ממרכז את הכפתור אנכית */
+    text-align: center;     
+    vertical-align: middle;  
 }
 
 .bin-button:hover {

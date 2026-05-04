@@ -1,6 +1,6 @@
 body {
     background-color: lightblue;
-    font-family: Arial, sans-serif; /* מוסיף מראה נקי יותר */
+    font-family: Arial, sans-serif; 
 }
 
 h1 {
@@ -9,25 +9,25 @@ h1 {
 
 .table {
     background-color: burlywood;
-    border: solid chocolate 2px; /* הגדלתי מעט את העובי */
+    border: solid chocolate 2px; 
     border-radius: 15px;
     margin: 30px auto;
-    border-collapse: separate; /* חובה כדי שה-radius יעבוד */
-    border-spacing: 0;         /* מונע רווחים לבנים בין התאים */
-    overflow: hidden;          /* שומר שהצבע של ה-td לא יסתיר את הפינות המעוגלות */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* מוסיף טיפה עומק */
+    border-collapse: separate; 
+    border-spacing: 0;         
+    overflow: hidden;          
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
 }
 
 .table th, .table td {
     background-color: lightblue;
     min-width: 100px;
     text-align: center;
-    padding: 12px 20px;       /* ה-padding יוצר את המרווח הפנימי שחיפשת */
-    border-bottom: 1px solid chocolate; /* קו מפריד בין השורות */
-    border-right: 1px solid chocolate;  /* קו מפריד בין העמודות */
+    padding: 12px 20px;       
+    border-bottom: 1px solid chocolate;
+    border-right: 1px solid chocolate;  
 }
 
-/* מסיר את הקו המפריד האחרון כדי שלא יתנגש בפינה המעוגלת */
+
 th:last-child, td:last-child {
     border-right: none;
 }
@@ -38,5 +38,5 @@ tr:last-child td {
 
 th {
     font-weight: bold;
-    background-color: #a0d8ef; /* צבע מעט שונה לכותרת */
+    background-color: #a0d8ef; 
 }

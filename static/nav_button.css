@@ -1,6 +1,5 @@
 
-/* Button styling used across the app.
-   Use via class="btn" to avoid breaking native form controls. */
+
 .btn {
   --color: #560bad;
   font-family: inherit;
